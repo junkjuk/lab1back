@@ -24,7 +24,7 @@ public class UserController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return BadRequest(new HealthcheckResponse("Error"));
+            return BadRequest();
         }
     }
     
@@ -42,7 +42,7 @@ public class UserController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return BadRequest(new HealthcheckResponse("Error"));
+            return BadRequest();
         }
     }
 
@@ -57,7 +57,7 @@ public class UserController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return BadRequest(new HealthcheckResponse("Error"));
+            return BadRequest();
         }
     }
 
@@ -72,7 +72,7 @@ public class UserController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return BadRequest(new HealthcheckResponse("Error"));
+            return BadRequest();
         }
     }
 }
