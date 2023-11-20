@@ -1,3 +1,5 @@
+using lab1back.Logic;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +8,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<ICategoryRepository, GodRepository>();
+builder.Services.AddSingleton<IRecordRepository, GodRepository>();
+builder.Services.AddSingleton<IUserRepository, GodRepository>();
 
 var app = builder.Build();
 
