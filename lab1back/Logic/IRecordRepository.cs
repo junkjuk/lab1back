@@ -5,6 +5,6 @@ namespace lab1back.Logic;
 public interface IRecordRepository
 {
     void DeleteRecord(Guid id);
-    void AddRecord(Category category);
-    Category GetRecordById(Guid id);
+    void AddRecord(Record category);
+    Record GetRecordById(Guid id);
 }
