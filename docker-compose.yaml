@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  lab1back:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5050:80"
