@@ -1,4 +1,5 @@
-﻿using lab1back.Models;
+﻿using lab1back.Logic;
+using lab1back.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lab1back.Controllers;
@@ -6,12 +7,19 @@ namespace lab1back.Controllers;
 [ApiController]
 public class UserController : ControllerBase
 {
+
+    private readonly IUserRepository _userRepository;
+    public UserController(IUserRepository userRepository)
+    {
+        _userRepository = userRepository;
+    }
+
     [HttpGet("users")]
     public IActionResult GetUsers()
     {
         try
         {
-            return Ok(new HealthcheckResponse(""));
+            return Ok(_userRepository.GetAllUsers());
         }
         catch (Exception e)
         {
@@ -25,7 +33,11 @@ public class UserController : ControllerBase
     {
         try
         {
-            return Ok(new HealthcheckResponse(id.ToString()));
+            var user = _userRepository.GetUserById(id);
+            if (user is null)
+                return NotFound();
+
+            return Ok();
         }
         catch (Exception e)
         {
@@ -39,7 +51,8 @@ public class UserController : ControllerBase
     {
         try
         {
-            return Ok(new HealthcheckResponse(id.ToString()));
+            _userRepository.DeleteUser(id);
+            return Ok();
         }
         catch (Exception e)
         {
@@ -49,11 +62,12 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("user")]
-    public IActionResult Delete([FromBody]string name)
+    public IActionResult Add([FromBody]string name)
     {
         try
         {
-            return Ok(new HealthcheckResponse(name));
+            _userRepository.AddUser(new User{Name = name, Id = Guid.NewGuid()});
+            return Ok();
         }
         catch (Exception e)
         {
