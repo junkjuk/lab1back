@@ -6,7 +6,7 @@ public class Record
     public Guid UserId { get; set; }
     public Guid CategoryId { get; set; }
     public DateTime CreatedAt { get; set; }
-    public float Amount { get; set; }
+    public string Amount { get; set; }
 
     public Record(CreateRecordRequest req)
     {
