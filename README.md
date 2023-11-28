@@ -1,4 +1,4 @@
-# lab1back
+# lab2back
 
 To start a project you need .net
 
@@ -22,4 +22,6 @@ docker-compose build
 
 docker-compose up 
 
-# Link to deployed api - (https://lab1back.onrender.com/Healthcheck)
+# Link to deployed api - (https://lab2back.onrender.com)
+
+# Postman flow - (https://web.postman.co/workspace/Personal-Workspace~8d17d90b-2151-4039-9810-f7b380aa6be9/flow/656479ecb39c41003c3af989)
