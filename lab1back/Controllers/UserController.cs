@@ -37,7 +37,7 @@ public class UserController : ControllerBase
             if (user is null)
                 return NotFound();
 
-            return Ok();
+            return Ok(user);
         }
         catch (Exception e)
         {
@@ -66,8 +66,9 @@ public class UserController : ControllerBase
     {
         try
         {
-            _userRepository.AddUser(new User{Name = name, Id = Guid.NewGuid()});
-            return Ok();
+            var user = new User {Name = name, Id = Guid.NewGuid()};
+            _userRepository.AddUser(user);
+            return Ok(user.Id);
         }
         catch (Exception e)
         {
