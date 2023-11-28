@@ -52,8 +52,9 @@ public class CategoriesController : ControllerBase
     {
         try
         {
-            _categoryRepository.AddCategory(new Category{Name = name, Id = Guid.NewGuid()});
-            return Ok();
+            var category = new Category {Name = name, Id = Guid.NewGuid()};
+            _categoryRepository.AddCategory(category);
+            return Ok(category.Id);
         }
         catch (Exception e)
         {
