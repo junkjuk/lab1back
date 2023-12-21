@@ -6,7 +6,7 @@ namespace DB;
 
 public class Repository<T> where T : EntityId
 {
-    private readonly AppContext Context;
+    public readonly AppContext Context;
 
     public Repository(AppContext context)
     {

@@ -8,7 +8,7 @@ public class Repositories
     private readonly AppContext _context;
 
     public Repository<User> UserRepository { get; }
-    public Repository<Bill> BillRepositor { get; } 
+    public Repository<Bill> BillRepository { get; } 
     public Repository<Record> RecordRepository { get; }
     public Repository<Category> CategoryRepository { get; }
 
@@ -16,7 +16,7 @@ public class Repositories
     {
         _context = context;
         UserRepository = new Repository<User>(context);
-        BillRepositor = new Repository<Bill>(context);
+        BillRepository = new Repository<Bill>(context);
         RecordRepository = new Repository<Record>(context);
         CategoryRepository = new Repository<Category>(context);
     }

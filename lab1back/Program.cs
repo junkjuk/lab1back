@@ -14,6 +14,7 @@ var connection = builder.Configuration.GetConnectionString("WebApiDatabase")!;
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IRecordRepository, RecordRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IBillService, BillService>();
 builder.Services.AddTransient<Repositories>();
 builder.Services.AddDbContext<DB.AppContext>(i =>
 {
