@@ -1,4 +1,4 @@
-﻿using lab1back.Models;
+﻿using Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DB;
@@ -8,7 +8,7 @@ public class AppContext : DbContext
     public DbSet<Record> Records { get; set; }        
     public DbSet<Category> Categorys { get; set; }        
     public DbSet<User> Users { get; set; }
-    public DbSet<Bill> Bills { get; set; }
+    public DbSet<Bill> Bill { get; set; }
 
     public AppContext(DbContextOptions<AppContext> options) 
         : base(options) 
