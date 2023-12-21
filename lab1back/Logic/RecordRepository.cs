@@ -8,17 +8,22 @@ namespace lab1back.Logic;
 public class RecordRepository : IRecordRepository
 {
     private readonly Repositories _repositories;
+    private readonly IBillService _billService;
 
-    public RecordRepository(Repositories repositories)
+    public RecordRepository(Repositories repositories, IBillService billService)
     {
         _repositories = repositories;
+        _billService = billService;
     }
 
     public Task DeleteRecord(Guid id)
         => _repositories.RecordRepository.DeleteByIdAsync(id);
 
-    public Task AddRecord(Record category)
-        => _repositories.RecordRepository.AddAsync(category);
+    public async Task AddRecord(Record category)
+    {
+        await _billService.MinusMoney(category.UserId, category.Amount);
+        await _repositories.RecordRepository.AddAsync(category);
+    }
 
     public Task<Record> GetRecordById(Guid id)
         => _repositories.RecordRepository.GetByIdAsync(id);
