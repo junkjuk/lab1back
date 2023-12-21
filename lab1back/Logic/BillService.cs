@@ -36,6 +36,7 @@ public class BillService : IBillService
         if (bill is null)
             return;
         bill.Balance += amount;
+        BillValidator.ValidateBill(bill);
         await _repositories.BillRepository.UpdateAsync(bill);
     }
 
@@ -50,6 +51,7 @@ public class BillService : IBillService
         if (bill is null)
             return;
         bill.Balance -= amount;
+        BillValidator.ValidateBill(bill);
         await _repositories.BillRepository.UpdateAsync(bill);
     }
 }
