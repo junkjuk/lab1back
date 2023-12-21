@@ -21,17 +21,22 @@ public class Repository<T> where T : EntityId
     {
         var entityToUpdate = await Context.Set<T>().FirstAsync(x => x.Id.Equals(entity.Id));
         entityToUpdate = entity;
+        await SaveAsync();
         return entityToUpdate;
     }
 
     public async Task AddAsync(T entity)
-        => await Context.Set<T>().AddAsync(entity);
+    {
+        await Context.Set<T>().AddAsync(entity);
+        await SaveAsync();
+    }
     
 
     public async Task<T> DeleteByIdAsync(Guid id)
     {
         var model = await GetByIdAsync(id);
         Context.Set<T>().Remove(model);
+        await SaveAsync();
         return model;
     }
 

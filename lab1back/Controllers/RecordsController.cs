@@ -16,11 +16,11 @@ public class RecordsController : ControllerBase
     }
     
     [HttpGet("record/{id}")]
-    public IActionResult Get(Guid id)
+    public async Task<IActionResult> Get(Guid id)
     {
         try
         {
-            var record = _recordRepository.GetRecordById(id);
+            var record = await _recordRepository.GetRecordById(id);
             if (record is null)
                 return NotFound();
 
@@ -34,13 +34,13 @@ public class RecordsController : ControllerBase
     }
 
     [HttpGet("record")]
-    public IActionResult Get([FromQuery] RecordRequest request)
+    public async Task<IActionResult> Get([FromQuery] RecordRequest request)
     {
         try
         {
             if (request.category_id is null && request.user_id is null)
                 BadRequest("Incorrect request");
-            var record = _recordRepository.GetRecords(request);
+            var record = await _recordRepository.GetRecords(request);
             return Ok(record);
         }
         catch (Exception e)
@@ -51,11 +51,11 @@ public class RecordsController : ControllerBase
     }
     
     [HttpDelete("record/{id}")]
-    public IActionResult Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         try
         {
-            _recordRepository.DeleteRecord(id);
+            await _recordRepository.DeleteRecord(id);
             return Ok();
         }
         catch (Exception e)
@@ -66,11 +66,11 @@ public class RecordsController : ControllerBase
     }
 
     [HttpPost("record")]
-    public IActionResult Add([FromBody]CreateRecordRequest req)
+    public async Task<IActionResult> Add([FromBody]CreateRecordRequest req)
     {
         try
         {
-            _recordRepository.AddRecord(new Record(req));
+            await _recordRepository.AddRecord(new Record(req));
             return Ok();
         }
         catch (Exception e)

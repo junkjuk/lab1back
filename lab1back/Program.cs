@@ -10,14 +10,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connection = builder.Configuration.GetConnectionString("WebApiDatabase")!;
-// var optionsBuilder = new DbContextOptionsBuilder<DB.AppContext>()
-    // .UseNpgsql(connection, sqlServerOptions => sqlServerOptions.EnableRetryOnFailure());
 
-// var repos = new Repositories(new DB.AppContext(optionsBuilder.Options));
-
-builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
-builder.Services.AddSingleton<IRecordRepository, RecordRepository>();
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IRecordRepository, RecordRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<Repositories>();
 builder.Services.AddDbContext<DB.AppContext>(i =>
 {
     i.UseNpgsql(connection, sqlServerOptions => sqlServerOptions.EnableRetryOnFailure());

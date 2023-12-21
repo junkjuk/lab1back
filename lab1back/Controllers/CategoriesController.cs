@@ -16,15 +16,15 @@ public class CategoriesController : ControllerBase
     }
     
     [HttpGet("category/{id}")]
-    public IActionResult Get(Guid id)
+    public async Task<IActionResult> Get(Guid id)
     {
         try
         {
-            var category = _categoryRepository.GetCategoryById(id);
+            var category = await _categoryRepository.GetCategoryById(id);
             if (category is null)
                 return NotFound();
 
-            return Ok();
+            return Ok(category);
         }
         catch (Exception e)
         {
@@ -34,11 +34,11 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpDelete("category/{id}")]
-    public IActionResult Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         try
         {
-            _categoryRepository.DeleteCategory(id);
+            await _categoryRepository.DeleteCategory(id);
             return Ok();
         }
         catch (Exception e)
@@ -49,12 +49,12 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost("category")]
-    public IActionResult Add([FromBody]string name)
+    public async Task<IActionResult> Add([FromBody]string name)
     {
         try
         {
             var category = new Category {Name = name, Id = Guid.NewGuid()};
-            _categoryRepository.AddCategory(category);
+            await _categoryRepository.AddCategory(category);
             return Ok(category.Id);
         }
         catch (Exception e)

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Entities;
 
@@ -20,7 +21,7 @@ public class Record : EntityId
         UserId = req.UserId;
         CategoryId = req.CategoryId;
         Amount = float.Parse(req.Amount);
-        CreatedAt = DateTime.Now;
+        CreatedAt = DateTime.Now.ToUniversalTime();
         Id = Guid.NewGuid();
     }
 }

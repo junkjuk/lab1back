@@ -16,11 +16,12 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("users")]
-    public IActionResult GetUsers()
+    public async Task<IActionResult> GetUsers()
     {
         try
         {
-            return Ok(_userRepository.GetAllUsers());
+            var users = await _userRepository.GetAllUsers();
+            return Ok(users);
         }
         catch (Exception e)
         {
@@ -30,11 +31,11 @@ public class UserController : ControllerBase
     }
     
     [HttpGet("user/{id}")]
-    public IActionResult Get(Guid id)
+    public async Task<IActionResult> Get(Guid id)
     {
         try
         {
-            var user = _userRepository.GetUserById(id);
+            var user = await _userRepository.GetUserById(id);
             if (user is null)
                 return NotFound();
 
@@ -48,11 +49,11 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("user/{id}")]
-    public IActionResult Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         try
         {
-            _userRepository.DeleteUser(id);
+            await _userRepository.DeleteUser(id);
             return Ok();
         }
         catch (Exception e)
@@ -63,12 +64,12 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("user")]
-    public IActionResult Add([FromBody]string name)
+    public async Task<IActionResult> Add([FromBody]string name)
     {
         try
         {
             var user = new User {Name = name, Id = Guid.NewGuid()};
-            _userRepository.AddUser(user);
+            await _userRepository.AddUser(user);
             return Ok(user.Id);
         }
         catch (Exception e)
