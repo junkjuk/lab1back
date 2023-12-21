@@ -76,7 +76,7 @@ public class RecordsController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return BadRequest();
+            return BadRequest(e.Message);
         }
     }
 }
