@@ -1,7 +1,12 @@
-﻿namespace lab1back.Models;
+﻿using System.Text.Json.Serialization;
 
-public class User
+namespace lab1back.Models;
+
+public class User : EntityId
 {
-    public Guid Id { get; set; }
     public string Name { get; set; }
+    [JsonIgnore]
+    public virtual ICollection<Record>? Records { get; set; }
+    [JsonIgnore]
+    public virtual Bill? Bill { get; set; }
 }
