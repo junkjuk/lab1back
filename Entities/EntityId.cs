@@ -1,4 +1,4 @@
-﻿namespace lab1back.Models;
+﻿namespace Entities;
 
 public class EntityId
 {

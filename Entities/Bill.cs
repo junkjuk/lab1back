@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace lab1back.Models;
+namespace Entities;
 
 public class Bill : EntityId
 {

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace lab1back.Models;
+namespace Entities;
 
 public class Record : EntityId
 {
