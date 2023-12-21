@@ -5,9 +5,12 @@ namespace Entities;
 
 public class Record : EntityId
 {
+    [Required]
     public Guid UserId { get; set; }
+    [Required]
     public Guid CategoryId { get; set; }
     public DateTime CreatedAt { get; set; }
+    [Required]
     public float Amount { get; set; }
     [JsonIgnore]
     public virtual User? User { get; set; }

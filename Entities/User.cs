@@ -1,9 +1,11 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Entities;
 
 public class User : EntityId
 {
+    [Required]
     public string Name { get; set; }
     [JsonIgnore]
     public virtual ICollection<Record>? Records { get; set; }
