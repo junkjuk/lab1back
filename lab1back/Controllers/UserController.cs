@@ -1,4 +1,5 @@
-﻿using lab1back.Logic;
+﻿using Entities;
+using lab1back.Logic;
 using lab1back.Models;
 using Microsoft.AspNetCore.Mvc;
 
