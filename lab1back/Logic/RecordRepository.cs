@@ -1,37 +1,37 @@
-﻿using lab1back.Models;
+﻿using DB;
+using Entities;
+using lab1back.Models;
+using AppContext = DB.AppContext;
 
 namespace lab1back.Logic;
 
-public class RecordRepository : BaseStorage, IRecordRepository
+public class RecordRepository : IRecordRepository
 {
-    public void DeleteRecord(Guid id)
-    {
-        var existRecord = GetRecordById(id);
-        if (existRecord is null)
-            return;
+    private readonly Repositories _repositories;
 
-        _record.Remove(existRecord);
+    public RecordRepository(Repositories repositories)
+    {
+        _repositories = repositories;
     }
 
-    public void AddRecord(Record category)
+    public Task DeleteRecord(Guid id)
+        => _repositories.RecordRepository.DeleteByIdAsync(id);
+
+    public Task AddRecord(Record category)
+        => _repositories.RecordRepository.AddAsync(category);
+
+    public Task<Record> GetRecordById(Guid id)
+        => _repositories.RecordRepository.GetByIdAsync(id);
+
+    public async Task<IEnumerable<Record>> GetRecords(RecordRequest request)
     {
-        var existRecord = GetRecordById(category.Id);
-        if (existRecord is not null)
-            return;
+        var result = await _repositories.RecordRepository.GetAllAsync();
 
-        _record.Add(category);
-    }
-
-    public Record GetRecordById(Guid id)
-        => _record.FirstOrDefault(i => i.Id == id);
-
-    public IEnumerable<Record> GetRecords(RecordRequest request)
-    {
         if (request.category_id is null)
-            return _record.Where(i => i.UserId == request.user_id);
+            return result.Where(i => i.UserId == request.user_id);
         if (request.user_id is null)
-            return _record.Where(i => i.CategoryId == request.category_id);
-        return _record.Where(i => i.CategoryId == request.category_id)
+            return result.Where(i => i.CategoryId == request.category_id);
+        return result.Where(i => i.CategoryId == request.category_id)
             .Where(i => i.UserId == request.user_id);
     }
 }

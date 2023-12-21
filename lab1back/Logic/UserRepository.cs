@@ -1,30 +1,29 @@
-﻿using lab1back.Models;
+﻿using DB;
+using Entities;
+using lab1back.Models;
+using Microsoft.EntityFrameworkCore;
+using AppContext = DB.AppContext;
 
 namespace lab1back.Logic;
 
-public class UserRepository : BaseStorage, IUserRepository
+public class UserRepository : IUserRepository
 {
-    public void DeleteUser(Guid id)
-    {
-        var existUser = GetUserById(id);
-        if (existUser is null)
-            return;
+    private readonly Repositories _repositories;
 
-        _user.Remove(existUser);
+    public UserRepository(Repositories repositories)
+    {
+        _repositories = repositories;
     }
 
-    public void AddUser(User user)
-    {
-        var existUser = GetUserById(user.Id);
-        if (existUser is not null)
-            return;
+    public Task DeleteUser(Guid id)
+        => _repositories.UserRepository.DeleteByIdAsync(id);
+    
+    public async Task AddUser(User user)
+    => await _repositories.UserRepository.AddAsync(user);
+    
+    public Task<User> GetUserById(Guid id)
+        => _repositories.UserRepository.GetByIdAsync(id);
 
-        _user.Add(user);
-    }
-
-    public User GetUserById(Guid id)
-        => _user.FirstOrDefault(i => i.Id == id);
-
-    public IEnumerable<User> GetAllUsers()
-        => _user;
+    public async Task<IEnumerable<User>> GetAllUsers()
+        => await _repositories.UserRepository.GetAllAsync();
 }

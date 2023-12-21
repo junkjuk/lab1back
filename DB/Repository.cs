@@ -1,4 +1,5 @@
-﻿using lab1back.Models;
+﻿using Entities;
+using lab1back.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DB;
@@ -12,7 +13,7 @@ public class Repository<T> where T : EntityId
         Context = context;
     }
     
-    public async Task<T> GetByIdAsync(int id)
+    public async Task<T> GetByIdAsync(Guid id)
         => await Context.Set<T>().FirstOrDefaultAsync(x => x.Id.Equals(id));
     
 
@@ -27,15 +28,15 @@ public class Repository<T> where T : EntityId
         => await Context.Set<T>().AddAsync(entity);
     
 
-    public async Task<T> DeleteByIdAsync(int id)
+    public async Task<T> DeleteByIdAsync(Guid id)
     {
         var model = await GetByIdAsync(id);
         Context.Set<T>().Remove(model);
         return model;
     }
 
-    public IAsyncEnumerable<T> GetAllAsync()
-        => Context.Set<T>().AsAsyncEnumerable();
+    public Task<List<T>> GetAllAsync()
+        => Context.Set<T>().ToListAsync();
     
     public Task SaveAsync()
         => Context.SaveChangesAsync();

@@ -1,28 +1,27 @@
-﻿using lab1back.Models;
+﻿using DB;
+using Entities;
+using lab1back.Models;
+using AppContext = DB.AppContext;
 
 namespace lab1back.Logic;
 
-public class CategoryRepository : BaseStorage, ICategoryRepository
+public class CategoryRepository : ICategoryRepository
 {
-    public void DeleteCategory(Guid id)
-    {
-        var category = GetCategoryById(id);
-        if (category is null)
-            return;
+    private readonly Repositories _repositories;
 
-        _category.Remove(category);
+    public CategoryRepository(Repositories repositories)
+    {
+        _repositories = repositories;
     }
 
-    public void AddCategory(Category category)
-    {
-        var existCategory = GetCategoryById(category.Id);
-        if (existCategory is not null)
-            return;
+    public Task DeleteCategory(Guid id)
+        => _repositories.CategoryRepository.DeleteByIdAsync(id);
+    
 
-        _category.Add(category);
-    }
+    public Task AddCategory(Category category)
+        => _repositories.CategoryRepository.AddAsync(category);
 
-    public Category GetCategoryById(Guid id)
-        => _category.FirstOrDefault(i => i.Id == id);
+    public Task<Category> GetCategoryById(Guid id)
+        => _repositories.CategoryRepository.GetByIdAsync(id);
 
 }

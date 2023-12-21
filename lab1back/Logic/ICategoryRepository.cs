@@ -1,10 +1,11 @@
-﻿using lab1back.Models;
+﻿using Entities;
+using lab1back.Models;
 
 namespace lab1back.Logic;
 
 public interface ICategoryRepository
 {
-    void DeleteCategory(Guid id);
-    void AddCategory(Category category);
-    Category GetCategoryById(Guid id);
+    Task DeleteCategory(Guid id);
+    Task AddCategory(Category category);
+    Task<Category> GetCategoryById(Guid id);
 }

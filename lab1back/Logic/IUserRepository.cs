@@ -1,11 +1,12 @@
-﻿using lab1back.Models;
+﻿using Entities;
+using lab1back.Models;
 
 namespace lab1back.Logic;
 
 public interface IUserRepository
 {
-    void DeleteUser(Guid id);
-    void AddUser(User user);
-    User GetUserById(Guid id);
-    IEnumerable<User> GetAllUsers();
+    Task DeleteUser(Guid id);
+    Task AddUser(User user);
+    Task<User> GetUserById(Guid id);
+    Task<IEnumerable<User>> GetAllUsers();
 }

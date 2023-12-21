@@ -1,20 +1,30 @@
+using DB;
 using lab1back.Logic;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var connection = builder.Configuration.GetConnectionString("WebApiDatabase")!;
+// var optionsBuilder = new DbContextOptionsBuilder<DB.AppContext>()
+    // .UseNpgsql(connection, sqlServerOptions => sqlServerOptions.EnableRetryOnFailure());
+
+// var repos = new Repositories(new DB.AppContext(optionsBuilder.Options));
+
 builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
 builder.Services.AddSingleton<IRecordRepository, RecordRepository>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddDbContext<DB.AppContext>(i =>
+{
+    i.UseNpgsql(connection, sqlServerOptions => sqlServerOptions.EnableRetryOnFailure());
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
