@@ -1,5 +1,7 @@
 # lab1back
 
+Variant: IM-12 -> 12 -> 12 % 3 = 0 -> Облік доходів
+
 To start a project you need .net
 
 You can download this here (https://dotnet.microsoft.com/en-us/download)
