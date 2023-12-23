@@ -24,4 +24,4 @@ docker-compose build
 
 docker-compose up 
 
-# Link to deployed api - (https://lab3back.onrender.com/Healthcheck)
+# Link to deployed api - (https://lab4back.onrender.com/Healthcheck)
