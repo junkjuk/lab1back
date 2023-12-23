@@ -1,10 +1,11 @@
 ﻿using Entities;
 using lab1back.Logic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lab1back.Controllers;
 
-[ApiController]
+[Authorize, ApiController]
 public class BillController : ControllerBase
 {
     private readonly IBillService _billService;

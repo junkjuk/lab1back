@@ -1,11 +1,11 @@
 ﻿using Entities;
 using lab1back.Logic;
-using lab1back.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lab1back.Controllers;
 
-[ApiController]
+[Authorize, ApiController]
 public class UserController : ControllerBase
 {
 
